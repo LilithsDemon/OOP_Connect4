@@ -1,0 +1,43 @@
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.GeneratedMSBuildEditorConfig.editorconfig
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.AssemblyInfoInputs.cache
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.AssemblyInfo.cs
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.csproj.CoreCompileInputs.cache
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.exe
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.deps.json
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.runtimeconfig.json
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.dll
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.pdb
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.dll
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/refint/Connect4.dll
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.pdb
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.genruntimeconfig.cache
+//10.147.18.93/uni/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/ref/Connect4.dll
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.deps.json
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.runtimeconfig.json
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.dll
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/bin/Debug/net7.0/Connect4.pdb
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.csproj.AssemblyReference.cache
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.GeneratedMSBuildEditorConfig.editorconfig
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.AssemblyInfoInputs.cache
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.AssemblyInfo.cs
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.csproj.CoreCompileInputs.cache
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.dll
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/refint/Connect4.dll
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.pdb
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/Connect4.genruntimeconfig.cache
+/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/Debug/net7.0/ref/Connect4.dll
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\Connect4.GeneratedMSBuildEditorConfig.editorconfig
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\Connect4.dll
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\refint\Connect4.dll
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\Connect4.pdb
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\bin\Debug\net7.0\Connect4.exe
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\bin\Debug\net7.0\Connect4.deps.json
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\bin\Debug\net7.0\Connect4.runtimeconfig.json
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\bin\Debug\net7.0\Connect4.dll
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\bin\Debug\net7.0\Connect4.pdb
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\Connect4.AssemblyInfoInputs.cache
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\Connect4.AssemblyInfo.cs
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\Connect4.csproj.CoreCompileInputs.cache
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\Connect4.genruntimeconfig.cache
+\\10.147.18.93\uni\Year 2\OOP\Deliverables\Connect4\Connect4\obj\Debug\net7.0\ref\Connect4.dll
