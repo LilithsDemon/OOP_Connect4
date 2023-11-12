@@ -51,15 +51,25 @@ namespace BoardLogic
         public bool PlaceCounter(int pos, int player)
         {
             pos--;
-            for(int i = 5; i >= 0; i--)
+            for(int i = 0; i < 6; i++)
             {
                 if(this.WholeBoard[i, pos] == 0)
                 {
                     this.WholeBoard[i, pos] = player;
-                    return true;
+                    if(i > 0)
+                    {
+                        this.WholeBoard[i - 1, pos] = 0;
+                    }
+                    this.DisplayBoard();
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    if(i == 0) return false;
+                    else return true;
                 }
             }
-            return false;
+            return true;
         }
 
         public Board(ConsoleColor player_1_colour, ConsoleColor player_2_colour, ConsoleColor board_colour = ConsoleColor.White)
