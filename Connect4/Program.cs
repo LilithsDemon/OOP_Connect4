@@ -7,7 +7,9 @@ namespace MainConnect4
     class Program
     {
 
-        public class User
+        public record ReturnVal(int code, string text);
+
+        public sealed class User
         {
             public string Username {get; private set;}
             public ConsoleColor Colour {get; private set;}
@@ -31,7 +33,7 @@ namespace MainConnect4
             Board board = new Board(users[0].Colour, users[1].Colour);
             bool player = false; // If false, player 1, if True player 2
             int pos = 0;
-            bool can_place = true;
+            Board.ReturnVal returnVal = new Board.ReturnVal(0, "");
             while(true)
             {
                 board.DisplayBoard();
@@ -59,14 +61,21 @@ namespace MainConnect4
                         continue;
                     }
 
-                    if(player == false) can_place = board.PlaceCounter(pos, 1);
-                    else can_place = board.PlaceCounter(pos, 2);
+                    if(player == false) returnVal = board.PlaceCounter(pos, 1);
+                    else returnVal = board.PlaceCounter(pos, 2);
 
-                    if(!can_place)
-                    {
-                        Console.WriteLine("You cannot place that there as that row is full!");
+                    if(returnVal.code == 400){
+                        Console.WriteLine(returnVal.text);
+                        Thread.Sleep(200);
                         found = false;
                     }
+                }
+
+                if(returnVal.code == 200)
+                {
+                    Console.WriteLine(returnVal.text);
+                    Thread.Sleep(200);
+                    break;
                 }
                 player = !player;
             }
