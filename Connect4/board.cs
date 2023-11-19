@@ -10,7 +10,7 @@ namespace BoardLogic
 
         public record ReturnVal(int code, string text);
 
-        public static int[,] FillBoard (int fill_val)
+        private static int[,] FillBoard (int fill_val)
         {
             int[,] tempArray = new int[6,7];
             for (int i = 0; i < 6; i++)
@@ -63,6 +63,19 @@ namespace BoardLogic
             }
         }
 
+        private bool BoardFilled()
+        {
+            for(int i = 0; i < 6; i++)
+            {
+                for(int j = 0; j < 7; j++)
+                {
+                    if(WholeBoard[i,j] == 0) return false;
+                }
+            }
+
+            return true;
+        }
+
         public ReturnVal PlaceCounter(int pos, int player)
         {
             int placed_x = 0;
@@ -85,6 +98,11 @@ namespace BoardLogic
                     if(i == 0) return new ReturnVal(400, "This row is already filled!");
                 }
             }
+            if(BoardFilled())
+            {
+                FillBoard(0);
+                return new ReturnVal (406, "Board is filled!");
+            } 
             if(CheckWin(placed_x, pos, player).code != 200) return new ReturnVal(100, "Continue Game");
             else return new ReturnVal(200, $"{player}");
         }
