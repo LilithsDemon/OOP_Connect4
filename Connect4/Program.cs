@@ -73,7 +73,8 @@ namespace MainConnect4
 
                 if(returnVal.code == 200)
                 {
-                    Console.WriteLine(returnVal.text);
+                    board.AnimateWinner(int.Parse(returnVal.text));
+                    Console.WriteLine($"{users[int.Parse(returnVal.text) - 1].Username} Wins!!");
                     Thread.Sleep(200);
                     break;
                 }

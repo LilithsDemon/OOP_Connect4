@@ -50,7 +50,18 @@ namespace BoardLogic
             Console.WriteLine("");
         }
 
-
+        public void AnimateWinner(int player)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                WholeBoard = FillBoard(player);
+                DisplayBoard();
+                Thread.Sleep(200);
+                WholeBoard = FillBoard(0);
+                DisplayBoard();
+                Thread.Sleep(200);
+            }
+        }
 
         public ReturnVal PlaceCounter(int pos, int player)
         {
@@ -75,11 +86,13 @@ namespace BoardLogic
                 }
             }
             if(CheckWin(placed_x, pos, player).code != 200) return new ReturnVal(100, "Continue Game");
-            else return new ReturnVal(200, $" Player: {player} won!!!");
+            else return new ReturnVal(200, $"{player}");
         }
 
         public ReturnVal CheckWin(int x, int y, int player)
         {
+            // As I am dumb, x is y, and y is x :)
+
             if(x < 3) // Checking down from placed
             {
                 if(this.WholeBoard[x + 1, y] == player && this.WholeBoard[x+2, y] == player && this.WholeBoard[x+3, y] == player) return new ReturnVal(200, "Player won");
@@ -107,7 +120,58 @@ namespace BoardLogic
                 } else break;
             }
 
-            count = 1;   
+            count = 1;
+            int current_x = x+1;
+            current_y = y-1;
+            while(current_y > -1 && current_x < 6) // Diagonal, low to high
+            {
+                if(this.WholeBoard[current_x,current_y] == player) //check left from start
+                {
+                    count += 1;
+                    current_y -= 1;
+                    current_x += 1;
+                    if(count == 4) return new ReturnVal(200, "Player won");
+                } else break;
+            }
+            current_y = y + 1;
+            current_x = x-1;
+            while(current_y < 7 && current_x > -1) // check right from start
+            {
+                if(this.WholeBoard[current_x,current_y] == player)
+                {
+                    count += 1;
+                    current_y += 1;
+                    current_x -= 1;
+                    if(count == 4) return new ReturnVal(200, "Player won");
+                } else break;
+            }
+
+            count = 1;
+            current_x = x-1;
+            current_y = y-1;
+            while(current_y > -1 && current_x > -1) // Diagonal, low to high
+            {
+                if(this.WholeBoard[current_x,current_y] == player) //check left from start
+                {
+                    count += 1;
+                    current_y -= 1;
+                    current_x -= 1;
+                    if(count == 4) return new ReturnVal(200, "Player won");
+                } else break;
+            }
+            current_y = y + 1;
+            current_x = x + 1;
+            while(current_y < 7 && current_x < 6) // check right from start
+            {
+                if(this.WholeBoard[current_x,current_y] == player)
+                {
+                    count += 1;
+                    current_y += 1;
+                    current_x += 1;
+                    if(count == 4) return new ReturnVal(200, "Player won");
+                } else break;
+            }
+
 
             return new ReturnVal(404, "Not a winning place");
         }
