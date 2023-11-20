@@ -30,6 +30,7 @@ namespace BoardLogic
         public void DisplayBoard()
         {
             Console.Clear();
+            Console.ForegroundColor = this.Colours[0];
             int current_val = 0;
             for (int i = 0; i < HEIGHT; i++)
             {
@@ -40,7 +41,7 @@ namespace BoardLogic
                     Console.ForegroundColor = this.Colours[current_val];
                     string output = current_val != 0 ? "O" : " ";
                     Console.Write(output);
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = this.Colours[0];
                     Console.Write(" | ");
                 }
                 Console.Write("\n");
@@ -52,6 +53,7 @@ namespace BoardLogic
                 Console.Write($" {i+1} |");
             }
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void AnimateWinner(int player, int[,] positions)
@@ -228,11 +230,10 @@ namespace BoardLogic
                 } else break;
             }
 
-
             return new ReturnWinningVal(404, positions);
         }
 
-        public Board(ConsoleColor player_1_colour, ConsoleColor player_2_colour, ConsoleColor board_colour = ConsoleColor.White, ConsoleColor win_colour = ConsoleColor.Green)
+        public Board(ConsoleColor player_1_colour, ConsoleColor player_2_colour, ConsoleColor board_colour = ConsoleColor.Yellow, ConsoleColor win_colour = ConsoleColor.Green)
         {
             Colours[0] = board_colour;
             Colours[1] = player_1_colour;
