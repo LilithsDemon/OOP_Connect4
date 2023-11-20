@@ -82,7 +82,6 @@ namespace MainConnect4
 
                         if(returnVal.code == 200)
                         {
-                            GameBoard.AnimateWinner(int.Parse(returnVal.text));
                             Console.WriteLine($"{Users[int.Parse(returnVal.text) - 1].Username} Wins!!");
                             Users[int.Parse(returnVal.text) - 1].AddWin();
                             Round++;
