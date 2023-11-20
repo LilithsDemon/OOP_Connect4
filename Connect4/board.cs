@@ -54,7 +54,7 @@ namespace BoardLogic
             Console.WriteLine("");
         }
 
-        public void AnimateWinner(int player, int[,] positions)
+        private void AnimateWinner(int player, int[,] positions)
         {
             for(int i = 0; i < 3; i++)
             {
