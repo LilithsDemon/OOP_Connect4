@@ -16,11 +16,19 @@ namespace MainConnect4
             public ConsoleColor Colour {get; private set;}
             public int Wins {get; private set;} = 0;
 
+            /// <summary>
+            /// Simply adds 1 to the numbers of win for the player
+            /// </summary>
             public void AddWin()
             {
                 this.Wins++;
             }
 
+            /// <summary>
+            /// Instantiates a new user
+            /// </summary>
+            /// <param name="name">Name of the user (string)</param>
+            /// <param name="given_colour">ConsoleColor of the user for the board</param>
             public User(string name, ConsoleColor given_colour)
             {
                 this.Username = name;
@@ -41,7 +49,7 @@ namespace MainConnect4
                 int pos = 0;
                 Board.ReturnVal returnVal = new Board.ReturnVal(0, "");
                 Thread.Sleep(200);
-                while(Round < 4 || (Users[0].Wins == Users[1].Wins))
+                while(Round < 4 || (Users[0].Wins == Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
                 {
                     while(true)
                     {
@@ -92,6 +100,7 @@ namespace MainConnect4
                         {
                             Console.WriteLine("Board has been filled, there is no winner");
                             Round++;
+                            Thread.Sleep(200);
                             break;
                         }
                         PlayersTurn = !PlayersTurn;
@@ -100,6 +109,9 @@ namespace MainConnect4
                 RevealWinner();
             }
 
+            /// <summary>
+            /// Used to show who has won the most number of games during the game
+            /// </summary>
             public void RevealWinner()
             {
                 Console.Clear();
@@ -118,6 +130,8 @@ namespace MainConnect4
 
         static void Main()
         {
+            Console.WriteLine("Welcome to Connect 4");
+            
             Game game = new Game(new User("Player 1", ConsoleColor.Blue), new User("Player 2", ConsoleColor.Red));
         }
     }

@@ -1,5 +1,7 @@
 using System;
 using System.Drawing;
+using System.Runtime.Serialization.Formatters;
+using Microsoft.VisualBasic;
 
 namespace BoardLogic
 {
@@ -13,7 +15,17 @@ namespace BoardLogic
 
         private const int HEIGHT = 6;
         private const int WIDTH = 7;
+        private const int WAITTIME = 200;
+        private const int CONTINUECODE = 100;
+        private const int WINNINGCODE = 200;
+        private const int BOARDERROR = 400;
+        private const int NOWINFOUND = 404;
 
+        /// <summary>
+        /// Fills the board with the value given
+        /// </summary>
+        /// <param name="fill_val">Value to fill the board with</param>
+        /// <returns></returns>
         private static int[,] FillBoard (int fill_val)
         {
             int[,] tempArray = new int[HEIGHT,WIDTH];
@@ -27,6 +39,9 @@ namespace BoardLogic
             return tempArray;
         }
 
+        /// <summary>
+        /// Outputs the Board to the screen
+        /// </summary>
         public void DisplayBoard()
         {
             Console.Clear();
@@ -56,6 +71,11 @@ namespace BoardLogic
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        /// <summary>
+        /// Simulates the board flashing to show someone has won
+        /// </summary>
+        /// <param name="player">The player's value</param>
+        /// <param name="positions">A 2D array that has the positions of the win to show in the player's colours</param>
         private void AnimateWinner(int player, int[,] positions)
         {
             for(int i = 0; i < 3; i++)
@@ -66,13 +86,17 @@ namespace BoardLogic
                     this.WholeBoard[positions[j,0], positions[j,1]] = player;
                 }
                 DisplayBoard();
-                Thread.Sleep(200);
+                Thread.Sleep(WAITTIME);
                 WholeBoard = FillBoard(0);
                 DisplayBoard();
-                Thread.Sleep(200);
+                Thread.Sleep(WAITTIME);
             }
         }
 
+        /// <summary>
+        /// Checks to see if the Board is completely filled with counters or not
+        /// </summary>
+        /// <returns>bool value: false if not filled, true if filled</returns>
         private bool BoardFilled()
         {
             for(int i = 0; i < HEIGHT; i++)
@@ -86,6 +110,12 @@ namespace BoardLogic
             return true;
         }
 
+        /// <summary>
+        /// Places a counter into the row given
+        /// </summary>
+        /// <param name="pos">Row that counter should be placed into</param>
+        /// <param name="player">The player's value</param>
+        /// <returns>A ReturnVal record with the values of ReturnVal.Code (int) and ReturnVal.Text (string)</returns>
         public ReturnVal PlaceCounter(int pos, int player)
         {
             int placed_x = 0;
@@ -101,30 +131,41 @@ namespace BoardLogic
                         this.WholeBoard[i - 1, pos] = 0;
                     } 
                     this.DisplayBoard();
-                    Thread.Sleep(200);
+                    Thread.Sleep(WAITTIME);
                 }
                 else
                 {
-                    if(i == 0) return new ReturnVal(400, "This row is already filled!");
+                    if(i == 0) return new ReturnVal(BOARDERROR, "This row is already filled!");
                 }
             }
             if(BoardFilled())
             {
                 WholeBoard = FillBoard(0);
-                return new ReturnVal (406, "Board is filled!");
+                return new ReturnVal (BOARDERROR, "Board is filled!");
             } 
             ReturnWinningVal check_win = CheckWin(placed_x, pos, player);
-            if(check_win.code != 200) return new ReturnVal(100, "Continue Game");
+            if(check_win.code != WINNINGCODE) return new ReturnVal(CONTINUECODE, "Continue Game");
             else
             {
                 AnimateWinner(player, check_win.positions);
-                return new ReturnVal(200, $"{player}");
+                return new ReturnVal(WINNINGCODE, $"{player}");
             } 
         }
 
+        /// <summary>
+        /// Checks to see if the new counter placed is part of a winning line
+        /// </summary>
+        /// <param name="x">X position of the counter placed</param>
+        /// <param name="y">Y position of the counter placed</param>
+        /// <param name="player">The player's value of who placed the counter</param>
+        /// <returns>A ReturnWinningVal which consits of the code(int) - ReturnWinningVal.Code and a list of the winning positions(int[,]) - ReturnWinnignVal.Positions</returns>
         public ReturnWinningVal CheckWin(int x, int y, int player)
         {
             // As I am dumb, x is y, and y is x :)
+
+            // Can improve by creating a function that takes in a position, and then the movement directions to check get's output
+            // Can then check opposite values of the delta values
+            // Then output them
 
             int count = 1;
             int[,] positions = new int[4,2]; 
@@ -140,99 +181,50 @@ namespace BoardLogic
                         positions[i+1, 0] = x + i + 1;
                         positions[i+1, 1] = y;
                         count += 1;
-                        if(count == 4) return new ReturnWinningVal(200, positions);
+                        if(count == 4) return new ReturnWinningVal(WINNINGCODE, positions);
                     } else break;
                 }
             }
 
-            int current_y = y - 1;
-            while(current_y > -1)
+            int CheckLine(int x, int y, int player, int idx, int idy)
             {
-                if(this.WholeBoard[x,current_y] == player) //check left from start
+                int count = 1;
+                for(int i = 0; i < 2; i++)
                 {
-                    positions[count,0] = x;
-                    positions[count,1] = current_y;
-                    count += 1;
-                    current_y -= 1;
-                    if(count == 4) return new ReturnWinningVal(200, positions);
-                } else break;
-            }
-            current_y = y + 1;
-            while(current_y < WIDTH) // check right from start
-            {
-                if(this.WholeBoard[x,current_y] == player)
-                {
-                    positions[count,0] = x; 
-                    positions[count,1] = current_y;
-                    count += 1;
-                    current_y += 1;
-                    if(count == 4) return new ReturnWinningVal(200, positions);
-                } else break;
-            }
-
-            count = 1;
-            int current_x = x+1;
-            current_y = y-1;
-            while(current_y > -1 && current_x < HEIGHT) // Diagonal, low to high
-            {
-                if(this.WholeBoard[current_x,current_y] == player) //check left from start
-                {
-                    positions[count,0] = current_x;
-                    positions[count,1] = current_y;
-                    count += 1;
-                    current_y -= 1;
-                    current_x += 1;
-                    if(count == 4) return new ReturnWinningVal(200, positions);
-                } else break;
-            }
-            current_y = y + 1;
-            current_x = x-1;
-            while(current_y < WIDTH && current_x > -1) // check right from start
-            {
-                if(this.WholeBoard[current_x,current_y] == player)
-                {
-                    positions[count,0] = current_x;
-                    positions[count,1] = current_y;
-                    count += 1;
-                    current_y += 1;
-                    current_x -= 1;
-                    if(count == 4) return new ReturnWinningVal(200, positions);
-                } else break;
+                    idx = 0 - idx;
+                    idy = 0 - idy;
+                    int current_x = x;
+                    int current_y = y;
+                    while(current_x + idx > -1 && current_x + idx < HEIGHT && current_y + idy > - 1 && current_y + idy < WIDTH)
+                    {
+                        current_x += idx;
+                        current_y += idy;
+                        if(this.WholeBoard[current_x, current_y] == player)
+                        {
+                            positions[count,0] = current_x;
+                            positions[count,1] = current_y;
+                            count += 1;
+                            if(count == 4) return count;
+                        } else break;
+                    }
+                }
+                return count;
             }
 
-            count = 1;
-            current_x = x-1;
-            current_y = y-1;
-            while(current_y > -1 && current_x > -1) // Diagonal, low to high
-            {
-                if(this.WholeBoard[current_x,current_y] == player) //check left from start
-                {
-                    positions[count,0] = current_x;
-                    positions[count,1] = current_y;
-                    count += 1;
-                    current_y -= 1;
-                    current_x -= 1;
-                    if(count == 4) return new ReturnWinningVal(200, positions);
-                } else break;
-            }
-            current_y = y + 1;
-            current_x = x + 1;
-            while(current_y < WIDTH && current_x < HEIGHT) // check right from start
-            {
-                if(this.WholeBoard[current_x,current_y] == player)
-                {
-                    positions[count,0] = current_x;
-                    positions[count,1] = current_y;
-                    count += 1;
-                    current_y += 1;
-                    current_x += 1;
-                    if(count == 4) return new ReturnWinningVal(200, positions);
-                } else break;
-            }
+            if(CheckLine(x, y, player, 0, -1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
+            if(CheckLine(x,y, player, -1, -1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
+            if(CheckLine(x,y, player, -1, 1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
 
-            return new ReturnWinningVal(404, positions);
+            return new ReturnWinningVal(NOWINFOUND, positions);
         }
 
+        /// <summary>
+        /// Intialsies the class Board
+        /// </summary>
+        /// <param name="player_1_colour">ConsoleColour of player 1</param>
+        /// <param name="player_2_colour">ConsoleColour of player 2</param>
+        /// <param name="board_colour">Colour the board is wanted to be (Is preset does not need to set if not wanted)</param>
+        /// <param name="win_colour"Colour the board flashes when someone wins (Is preset does not need to set if not wanted)></param>
         public Board(ConsoleColor player_1_colour, ConsoleColor player_2_colour, ConsoleColor board_colour = ConsoleColor.Yellow, ConsoleColor win_colour = ConsoleColor.Green)
         {
             Colours[0] = board_colour;

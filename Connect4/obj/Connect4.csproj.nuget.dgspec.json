@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/Connect4.csproj": {}
+    "\\\\10.147.18.93\\uni\\Year 2\\OOP\\Deliverables\\Connect4\\Connect4\\Connect4.csproj": {}
   },
   "projects": {
-    "/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/Connect4.csproj": {
+    "\\\\10.147.18.93\\uni\\Year 2\\OOP\\Deliverables\\Connect4\\Connect4\\Connect4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/Connect4.csproj",
+        "projectUniqueName": "\\\\10.147.18.93\\uni\\Year 2\\OOP\\Deliverables\\Connect4\\Connect4\\Connect4.csproj",
         "projectName": "Connect4",
-        "projectPath": "/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/Connect4.csproj",
-        "packagesPath": "/config/.nuget/packages/",
-        "outputPath": "/external/Small Drive/UNI/Year 2/OOP/Deliverables/Connect4/Connect4/obj/",
+        "projectPath": "\\\\10.147.18.93\\uni\\Year 2\\OOP\\Deliverables\\Connect4\\Connect4\\Connect4.csproj",
+        "packagesPath": "C:\\Users\\lucyg\\.nuget\\packages\\",
+        "outputPath": "\\\\10.147.18.93\\uni\\Year 2\\OOP\\Deliverables\\Connect4\\Connect4\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/config/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\lucyg\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.113/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
