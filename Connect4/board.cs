@@ -186,6 +186,15 @@ namespace BoardLogic
                 }
             }
 
+            /// <smmary>
+            /// Check relative position given by moving across the 2D array in comparision to delta x and delta y and sees if those are the players
+            /// </summary>
+            /// <param name="x">X position counter was placed in</param>
+            /// <param name="y">Y position counter was placed in</param>
+            /// <param name="player">The players value</param>
+            /// <param name="idx">The movement of the x value to check</param>
+            /// <param name="idy">The movement of the y value to check</param>
+            /// <returns>A interger value that returns how many counters have been counted that belong to the player 4 = win</returns>
             int CheckLine(int x, int y, int player, int idx, int idy)
             {
                 int count = 1;
