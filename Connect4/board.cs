@@ -163,28 +163,9 @@ namespace BoardLogic
         {
             // As I am dumb, x is y, and y is x :)
 
-            // Can improve by creating a function that takes in a position, and then the movement directions to check get's output
-            // Can then check opposite values of the delta values
-            // Then output them
-
-            int count = 1;
             int[,] positions = new int[4,2]; 
             positions[0,0] = x;
             positions[0,1] = y;
-
-            if(x < 3) // Checking down from placed
-            {
-                for(int i = 0; i < 3; i++)
-                {
-                    if(this.WholeBoard[x + i + 1, y] == player)
-                    {
-                        positions[i+1, 0] = x + i + 1;
-                        positions[i+1, 1] = y;
-                        count += 1;
-                        if(count == 4) return new ReturnWinningVal(WINNINGCODE, positions);
-                    } else break;
-                }
-            }
 
             /// <smmary>
             /// Check relative position given by moving across the 2D array in comparision to delta x and delta y and sees if those are the players
@@ -220,6 +201,7 @@ namespace BoardLogic
                 return count;
             }
 
+            if(CheckLine(x, y, player, -1, 0) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
             if(CheckLine(x, y, player, 0, -1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
             if(CheckLine(x,y, player, -1, -1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
             if(CheckLine(x,y, player, -1, 1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
