@@ -134,7 +134,6 @@ namespace MainConnect4
         /// </summary>
         static void StartGame()
         {
-            bool found = false;
             string[] usernames = new string[2];
             List<ConsoleColor> all_console_colours = ((ConsoleColor[]) ConsoleColor.GetValues(typeof(ConsoleColor))).ToList();
             ConsoleColor[] colours_picked = new ConsoleColor[2];
@@ -142,16 +141,14 @@ namespace MainConnect4
             Console.WriteLine("Welcome to Connect 4");
             for (int i = 0; i < 2; i++)
             {
-                found = false;
-                while (!found)
+                while (true)
                 {
                     Console.WriteLine($"Player {i + 1}: What do you want your username to be: ");
                     usernames[i] = Console.ReadLine() ?? "";
-                    if (usernames[i] != "") found = true;
+                    if (usernames[i] != "") break;
                     else Console.WriteLine("Please enter an actual username! ");
                 }
-                found = false;
-                while (!found)
+                while (true)
                 {
                     Console.WriteLine($"Welcome {usernames[i]}: What colour would you like to be: Options: ");
                     for (int j = 0; j < all_console_colours.Count(); j++)
@@ -162,9 +159,9 @@ namespace MainConnect4
                     bool num = int.TryParse(Console.ReadLine() ?? "", out chosen_colour);
                     if (num && chosen_colour > 0 && chosen_colour - 1 < all_console_colours.Count())
                     {
-                        found = true;
                         colours_picked[i] = all_console_colours[chosen_colour - 1];
                         all_console_colours.RemoveAt(chosen_colour - 1);
+                        break;
                     }
                 }
             }
