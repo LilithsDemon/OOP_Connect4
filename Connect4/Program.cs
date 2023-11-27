@@ -12,9 +12,9 @@ namespace MainConnect4
 
         public sealed class User
         {
-            public string Username {get; private set;}
-            public ConsoleColor Colour {get; private set;}
-            public int Wins {get; private set;} = 0;
+            public string Username { get; private set; }
+            public ConsoleColor Colour { get; private set; }
+            public int Wins { get; private set; } = 0;
 
             /// <summary>
             /// Simply adds 1 to the numbers of win for the player
@@ -49,46 +49,47 @@ namespace MainConnect4
                 int pos = 0;
                 Board.ReturnVal returnVal = new Board.ReturnVal(0, "");
                 Thread.Sleep(200);
-                while(Round < 4 || (Users[0].Wins == Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
+                while (Round < 4 || (Users[0].Wins == Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
                 {
-                    while(true)
+                    while (true)
                     {
                         GameBoard.DisplayBoard();
                         bool found = false;
-                        while(!found)
+                        while (!found)
                         {
                             string output_text = PlayersTurn == false ? $"{Users[0].Username} Where would you Like to place your counter:" : $"{Users[1].Username} Where would you Like to place your counter:";
                             Console.WriteLine(output_text);
                             string user_input = Console.ReadLine() ?? "";
-                            if(user_input == "")
-                            { 
+                            if (user_input == "")
+                            {
                                 Console.WriteLine("Please enter a value");
                                 continue;
                             }
                             found = int.TryParse(user_input, out pos);
-                            if(found == false)
+                            if (found == false)
                             {
                                 Console.WriteLine("Please enter a numerical value");
                                 continue;
                             }
-                            if(pos > 7 || pos < 1)
+                            if (pos > 7 || pos < 1)
                             {
                                 Console.WriteLine("Please enter a value bigger than 0 and smaller than 8");
                                 found = false;
                                 continue;
                             }
 
-                            if(PlayersTurn == false) returnVal = GameBoard.PlaceCounter(pos, 1);
+                            if (PlayersTurn == false) returnVal = GameBoard.PlaceCounter(pos, 1);
                             else returnVal = GameBoard.PlaceCounter(pos, 2);
 
-                            if(returnVal.code == 400){
+                            if (returnVal.code == 400)
+                            {
                                 Console.WriteLine(returnVal.text);
                                 Thread.Sleep(200);
                                 found = false;
                             }
                         }
 
-                        if(returnVal.code == 200)
+                        if (returnVal.code == 200)
                         {
                             Console.WriteLine($"{Users[int.Parse(returnVal.text) - 1].Username} Wins!!");
                             Users[int.Parse(returnVal.text) - 1].AddWin();
@@ -96,7 +97,7 @@ namespace MainConnect4
                             Thread.Sleep(200);
                             break;
                         }
-                        if(returnVal.code == 406)
+                        if (returnVal.code == 406)
                         {
                             Console.WriteLine("Board has been filled, there is no winner");
                             Round++;
@@ -128,11 +129,52 @@ namespace MainConnect4
             }
         }
 
+        /// <summary>
+        /// Starts by allowing users to be able to pick their names and colours before starting the game off with their chosen values
+        /// </summary>
+        static void StartGame()
+        {
+            bool found = false;
+            string[] usernames = new string[2];
+            List<ConsoleColor> all_console_colours = ((ConsoleColor[]) ConsoleColor.GetValues(typeof(ConsoleColor))).ToList();
+            ConsoleColor[] colours_picked = new ConsoleColor[2];
+
+            Console.WriteLine("Welcome to Connect 4");
+            for (int i = 0; i < 2; i++)
+            {
+                found = false;
+                while (!found)
+                {
+                    Console.WriteLine($"Player {i + 1}: What do you want your username to be: ");
+                    usernames[i] = Console.ReadLine() ?? "";
+                    if (usernames[i] != "") found = true;
+                    else Console.WriteLine("Please enter an actual username! ");
+                }
+                found = false;
+                while (!found)
+                {
+                    Console.WriteLine($"Welcome {usernames[i]}: What colour would you like to be: Options: ");
+                    for (int j = 0; j < all_console_colours.Count(); j++)
+                    {
+                        Console.WriteLine($"{j + 1}: {all_console_colours[j]}");
+                    }
+                    int chosen_colour = 0;
+                    bool num = int.TryParse(Console.ReadLine() ?? "", out chosen_colour);
+                    if (num && chosen_colour > 0 && chosen_colour - 1 < all_console_colours.Count())
+                    {
+                        found = true;
+                        colours_picked[i] = all_console_colours[chosen_colour - 1];
+                        all_console_colours.RemoveAt(chosen_colour - 1);
+                    }
+                }
+            }
+
+            Game game = new Game(new User(usernames[0], colours_picked[0]), new User(usernames[1], colours_picked[1]));
+        }
+
         static void Main()
         {
-            Console.WriteLine("Welcome to Connect 4");
-            
-            Game game = new Game(new User("Player 1", ConsoleColor.Blue), new User("Player 2", ConsoleColor.Red));
+            StartGame();
         }
     }
 }
