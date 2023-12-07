@@ -34,6 +34,13 @@ namespace MainConnect4
                 this.Username = name;
                 this.Colour = given_colour;
             }
+
+            public User(string name, int player)
+            {
+                this.Username = name;
+                if(player == 1) this.Colour = ConsoleColor.Red;
+                else this.Colour = ConsoleColor.Yellow;
+            }
         }
 
         public sealed class Game
@@ -169,9 +176,25 @@ namespace MainConnect4
             Game game = new Game(new User(usernames[0], colours_picked[0]), new User(usernames[1], colours_picked[1]));
         }
 
-        static void Main()
+        /// <summary>
+        /// Uses a paramater to be able to start a fast game where it does not need to ask for names or colours
+        /// </summary>
+        static void FastStart()
         {
-            StartGame();
+            Console.WriteLine("Welcome to Connect 4");
+            Game game = new Game(new User("Player 1", 1), new User("Player 2", 2));
+        }
+
+        static void Main(string[] args)
+        {
+            try
+            {
+                if(args[0] == "fast") FastStart();
+            }
+            catch
+            {
+                StartGame();
+            }
         }
     }
 }

@@ -152,6 +152,40 @@ namespace BoardLogic
             } 
         }
 
+        /// <smmary>
+        /// Check relative position given by moving across the 2D array in comparision to delta x and delta y and sees if those are the players
+        /// </summary>
+        /// <param name="x">X position counter was placed in</param>
+        /// <param name="y">Y position counter was placed in</param>
+        /// <param name="player">The players value</param>
+        /// <param name="idx">The movement of the x value to check</param>
+        /// <param name="idy">The movement of the y value to check</param>
+        /// <returns>A interger value that returns how many counters have been counted that belong to the player 4 = win</returns>
+        private int CheckLine(int x, int y, int player, int idx, int idy, ref int[,] positions)
+        {
+            int count = 1;
+            for(int i = 0; i < 2; i++)
+            {
+                idx = 0 - idx;
+                idy = 0 - idy;
+                int current_x = x;
+                int current_y = y;
+                while(current_x + idx > -1 && current_x + idx < HEIGHT && current_y + idy > - 1 && current_y + idy < WIDTH)
+                {
+                    current_x += idx;
+                    current_y += idy;
+                    if(this.WholeBoard[current_x, current_y] == player)
+                    {
+                        positions[count,0] = current_x;
+                        positions[count,1] = current_y;
+                        count += 1;
+                        if(count == 4) return count;
+                    } else break;
+                }
+            }
+            return count;
+        }
+
         /// <summary>
         /// Checks to see if the new counter placed is part of a winning line
         /// </summary>
@@ -161,52 +195,18 @@ namespace BoardLogic
         /// <returns>A ReturnWinningVal which consits of the code(int) - ReturnWinningVal.Code and a list of the winning positions(int[,]) - ReturnWinnignVal.Positions</returns>
         public ReturnWinningVal CheckWin(int x, int y, int player)
         {
-            // As I am dumb, x is y, and y is x :)
-
             int[,] positions = new int[4,2]; 
             positions[0,0] = x;
             positions[0,1] = y;
 
-            /// <smmary>
-            /// Check relative position given by moving across the 2D array in comparision to delta x and delta y and sees if those are the players
-            /// </summary>
-            /// <param name="x">X position counter was placed in</param>
-            /// <param name="y">Y position counter was placed in</param>
-            /// <param name="player">The players value</param>
-            /// <param name="idx">The movement of the x value to check</param>
-            /// <param name="idy">The movement of the y value to check</param>
-            /// <returns>A interger value that returns how many counters have been counted that belong to the player 4 = win</returns>
-            int CheckLine(int x, int y, int player, int idx, int idy)
+            int[][] directions = new int[][] { new int[] {1, 0}, new int[] {0, 1}, new int[] {1, 1}, new int[] {1, -1} };
+
+            foreach(int[] direction in directions)
             {
-                int count = 1;
-                for(int i = 0; i < 2; i++)
-                {
-                    idx = 0 - idx;
-                    idy = 0 - idy;
-                    int current_x = x;
-                    int current_y = y;
-                    while(current_x + idx > -1 && current_x + idx < HEIGHT && current_y + idy > - 1 && current_y + idy < WIDTH)
-                    {
-                        current_x += idx;
-                        current_y += idy;
-                        if(this.WholeBoard[current_x, current_y] == player)
-                        {
-                            positions[count,0] = current_x;
-                            positions[count,1] = current_y;
-                            count += 1;
-                            if(count == 4) return count;
-                        } else break;
-                    }
-                }
-                return count;
+                if(CheckLine(x, y, player, direction[0], direction[1], ref positions) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
             }
 
-            if(CheckLine(x, y, player, -1, 0) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
-            if(CheckLine(x, y, player, 0, -1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
-            if(CheckLine(x,y, player, -1, -1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
-            if(CheckLine(x,y, player, -1, 1) == 4) return new ReturnWinningVal(WINNINGCODE, positions);
-
-            return new ReturnWinningVal(NOWINFOUND, positions);
+            return new ReturnWinningVal(NOWINFOUND, new int[4,2]);
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace BoardLogic
         /// <param name="player_2_colour">ConsoleColour of player 2</param>
         /// <param name="board_colour">Colour the board is wanted to be (Is preset does not need to set if not wanted)</param>
         /// <param name="win_colour"Colour the board flashes when someone wins (Is preset does not need to set if not wanted)></param>
-        public Board(ConsoleColor player_1_colour, ConsoleColor player_2_colour, ConsoleColor board_colour = ConsoleColor.Yellow, ConsoleColor win_colour = ConsoleColor.Green)
+        public Board(ConsoleColor player_1_colour, ConsoleColor player_2_colour, ConsoleColor board_colour = ConsoleColor.Blue, ConsoleColor win_colour = ConsoleColor.Green)
         {
             this.Colours[0] = board_colour;
             this.Colours[1] = player_1_colour;
