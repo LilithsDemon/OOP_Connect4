@@ -4,6 +4,7 @@
 Made by LilithsDemon (Lucy Gardener)
 
 Made for my Applied Computing uni course
+
 ---
 
 This program is written in C# and is a object orientated approach to the well known connect 4 game.
