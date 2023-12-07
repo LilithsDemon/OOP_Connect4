@@ -49,7 +49,7 @@ namespace MainConnect4
                 int pos = 0;
                 Board.ReturnVal returnVal = new Board.ReturnVal(0, "");
                 Thread.Sleep(200);
-                while (Round < 4 || (Users[0].Wins == Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
+                while (Round < 4 || (this.Users[0].Wins == this.Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
                 {
                     while (true)
                     {
@@ -57,7 +57,7 @@ namespace MainConnect4
                         bool found = false;
                         while (!found)
                         {
-                            string output_text = PlayersTurn == false ? $"{Users[0].Username} Where would you Like to place your counter:" : $"{Users[1].Username} Where would you Like to place your counter:";
+                            string output_text = this.PlayersTurn == false ? $"{this.Users[0].Username} Where would you Like to place your counter:" : $"{this.Users[1].Username} Where would you Like to place your counter:";
                             Console.WriteLine(output_text);
                             string user_input = Console.ReadLine() ?? "";
                             if (user_input == "")
@@ -78,7 +78,7 @@ namespace MainConnect4
                                 continue;
                             }
 
-                            if (PlayersTurn == false) returnVal = GameBoard.PlaceCounter(pos, 1);
+                            if (this.PlayersTurn == false) returnVal = GameBoard.PlaceCounter(pos, 1);
                             else returnVal = GameBoard.PlaceCounter(pos, 2);
 
                             if (returnVal.code == 400)
@@ -91,8 +91,8 @@ namespace MainConnect4
 
                         if (returnVal.code == 200)
                         {
-                            Console.WriteLine($"{Users[int.Parse(returnVal.text) - 1].Username} Wins!!");
-                            Users[int.Parse(returnVal.text) - 1].AddWin();
+                            Console.WriteLine($"{this.Users[int.Parse(returnVal.text) - 1].Username} Wins!!");
+                            this.Users[int.Parse(returnVal.text) - 1].AddWin();
                             Round++;
                             Thread.Sleep(200);
                             break;
@@ -104,7 +104,7 @@ namespace MainConnect4
                             Thread.Sleep(200);
                             break;
                         }
-                        PlayersTurn = !PlayersTurn;
+                        this.PlayersTurn = !this.PlayersTurn;
                     }
                 }
                 RevealWinner();
@@ -116,15 +116,15 @@ namespace MainConnect4
             public void RevealWinner()
             {
                 Console.Clear();
-                int winner = (Users[0].Wins > Users[1].Wins) ? 0 : 1;
-                Console.WriteLine($"{Users[winner].Username} Wins having won {Users[0].Wins} rounds");
+                int winner = (this.Users[0].Wins > this.Users[1].Wins) ? 0 : 1;
+                Console.WriteLine($"{this.Users[winner].Username} Wins having won {this.Users[0].Wins} rounds");
             }
 
             public Game(User player_1, User player_2)
             {
-                Users[0] = player_1;
-                Users[1] = player_2;
-                GameBoard = new Board(Users[0].Colour, Users[1].Colour);
+                this.Users[0] = player_1;
+                this.Users[1] = player_2;
+                GameBoard = new Board(this.Users[0].Colour, this.Users[1].Colour);
                 this.PlayGame();
             }
         }

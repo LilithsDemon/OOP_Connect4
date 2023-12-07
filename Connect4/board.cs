@@ -80,14 +80,14 @@ namespace BoardLogic
         {
             for(int i = 0; i < 3; i++)
             {
-                WholeBoard = FillBoard(3);
+                this.WholeBoard = FillBoard(3);
                 for(int j = 0; j < 4; j++)
                 {
                     this.WholeBoard[positions[j,0], positions[j,1]] = player;
                 }
                 DisplayBoard();
                 Thread.Sleep(WAITTIME);
-                WholeBoard = FillBoard(0);
+                this.WholeBoard = FillBoard(0);
                 DisplayBoard();
                 Thread.Sleep(WAITTIME);
             }
@@ -103,7 +103,7 @@ namespace BoardLogic
             {
                 for(int j = 0; j < WIDTH; j++)
                 {
-                    if(WholeBoard[i,j] == 0) return false;
+                    if(this.WholeBoard[i,j] == 0) return false;
                 }
             }
 
@@ -140,7 +140,7 @@ namespace BoardLogic
             }
             if(BoardFilled())
             {
-                WholeBoard = FillBoard(0);
+                this.WholeBoard = FillBoard(0);
                 return new ReturnVal (BOARDERROR, "Board is filled!");
             } 
             ReturnWinningVal check_win = CheckWin(placed_x, pos, player);
@@ -218,10 +218,10 @@ namespace BoardLogic
         /// <param name="win_colour"Colour the board flashes when someone wins (Is preset does not need to set if not wanted)></param>
         public Board(ConsoleColor player_1_colour, ConsoleColor player_2_colour, ConsoleColor board_colour = ConsoleColor.Yellow, ConsoleColor win_colour = ConsoleColor.Green)
         {
-            Colours[0] = board_colour;
-            Colours[1] = player_1_colour;
-            Colours[2] = player_2_colour;
-            Colours[3] = win_colour;
+            this.Colours[0] = board_colour;
+            this.Colours[1] = player_1_colour;
+            this.Colours[2] = player_2_colour;
+            this.Colours[3] = win_colour;
         }
     }
 }
