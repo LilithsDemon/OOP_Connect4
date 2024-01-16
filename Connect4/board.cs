@@ -21,6 +21,7 @@ namespace BoardLogic
         private const int BOARDERROR = 400;
         private const int NOWINFOUND = 404;
 
+
         /// <summary>
         /// Fills the board with the value given
         /// </summary>
@@ -160,26 +161,27 @@ namespace BoardLogic
         /// <param name="player">The players value</param>
         /// <param name="idx">The movement of the x value to check</param>
         /// <param name="idy">The movement of the y value to check</param>
+        /// <param name="positions">A reference to the list of found positions</param>>
         /// <returns>A interger value that returns how many counters have been counted that belong to the player 4 = win</returns>
         private int CheckLine(int x, int y, int player, int idx, int idy, ref int[,] positions)
         {
-            int count = 1;
-            for(int i = 0; i < 2; i++)
+            int count = 1; // 1 as we know they have already just placed one counter
+            for(int i = 0; i < 2; i++) // Done twice to check direction both ways e.g. left then right
             {
-                idx = 0 - idx;
+                idx = 0 - idx; // Changes the value of the x and y values to be able to check both directions
                 idy = 0 - idy;
                 int current_x = x;
                 int current_y = y;
-                while(current_x + idx > -1 && current_x + idx < HEIGHT && current_y + idy > - 1 && current_y + idy < WIDTH)
+                while(current_x + idx > -1 && current_x + idx < HEIGHT && current_y + idy > - 1 && current_y + idy < WIDTH) //Making sure that we do not go out of the bounds of the array
                 {
                     current_x += idx;
                     current_y += idy;
-                    if(this.WholeBoard[current_x, current_y] == player)
+                    if(this.WholeBoard[current_x, current_y] == player) //If counter value is same as the current players value
                     {
                         positions[count,0] = current_x;
                         positions[count,1] = current_y;
                         count += 1;
-                        if(count == 4) return count;
+                        if(count >= 4) return count; //If they have 4 in a row (or more)
                     } else break;
                 }
             }

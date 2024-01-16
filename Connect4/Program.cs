@@ -52,15 +52,15 @@ namespace MainConnect4
 
             public void PlayGame()
             {
-                Console.WriteLine($"Round: {Round}!");
+                Console.WriteLine($"Round: {this.Round}!");
                 int pos = 0;
                 Board.ReturnVal returnVal = new Board.ReturnVal(0, "");
                 Thread.Sleep(200);
-                while (Round < 4 || (this.Users[0].Wins == this.Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
+                while (this.Round < 4 || (this.Users[0].Wins == this.Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
                 {
                     while (true)
                     {
-                        GameBoard.DisplayBoard();
+                        this.GameBoard.DisplayBoard();
                         bool found = false;
                         while (!found)
                         {
@@ -85,8 +85,8 @@ namespace MainConnect4
                                 continue;
                             }
 
-                            if (this.PlayersTurn == false) returnVal = GameBoard.PlaceCounter(pos, 1);
-                            else returnVal = GameBoard.PlaceCounter(pos, 2);
+                            if (this.PlayersTurn == false) returnVal = this.GameBoard.PlaceCounter(pos, 1);
+                            else returnVal = this.GameBoard.PlaceCounter(pos, 2);
 
                             if (returnVal.code == 400)
                             {
@@ -131,7 +131,7 @@ namespace MainConnect4
             {
                 this.Users[0] = player_1;
                 this.Users[1] = player_2;
-                GameBoard = new Board(this.Users[0].Colour, this.Users[1].Colour);
+                this.GameBoard = new Board(this.Users[0].Colour, this.Users[1].Colour);
                 this.PlayGame();
             }
         }
