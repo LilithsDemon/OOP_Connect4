@@ -52,12 +52,13 @@ namespace MainConnect4
 
             public void PlayGame()
             {
-                Console.WriteLine($"Round: {this.Round}!");
                 int pos = 0;
                 Board.ReturnVal returnVal = new Board.ReturnVal(0, "");
-                Thread.Sleep(200);
                 while (this.Round < 4 || (this.Users[0].Wins == this.Users[1].Wins)) // Runs till 3 rounds have been played, or they are tied.
                 {
+                    Console.Clear();
+                    Console.WriteLine($"Round: {this.Round}!");
+                    Thread.Sleep(3000);
                     while (true)
                     {
                         this.GameBoard.DisplayBoard();
@@ -190,6 +191,7 @@ namespace MainConnect4
             try
             {
                 if(args[0] == "fast") FastStart();
+                else StartGame();
             }
             catch
             {
